@@ -7,5 +7,5 @@ import java.util.List;
  */
 public interface DataParser {
 
-    List parser (final List<String> lines);
+    Object parse(final List<String> lines, final String... pattern);
 }

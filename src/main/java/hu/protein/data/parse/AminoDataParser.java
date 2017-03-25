@@ -13,7 +13,7 @@ public class AminoDataParser implements DataParser {
     public static final int ITEM_COUNT = 7;
 
     @Override
-    public List<AminoAcid> parser(final List<String> lines) {
+    public List<AminoAcid> parse(final List<String> lines, final String... pattern) {
         List<AminoAcid> aminoAcids = new ArrayList<>();
         for (int i = 0; i < lines.size(); i+= ITEM_COUNT) {
             aminoAcids.add(createAminoAcid(lines, i));

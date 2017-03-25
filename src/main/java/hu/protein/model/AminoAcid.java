@@ -58,14 +58,10 @@ public class AminoAcid {
         return s;
     }
 
-    public static AminoAcid add(final AminoAcid a1, final AminoAcid a2) {
-        int c = a1.c + a2.c;
-        int h = a1.h + a2.h;
-        int o = a1.o + a2.o;
-        int n = a1.n + a2.n;
-        int s = a1.s + a2.s;
-        return new AminoAcid(null, null, c, h, n, o, s);
+    public int getAtomicMass() {
+        return atomicMass;
     }
+
 
     @Override
     public String toString() {

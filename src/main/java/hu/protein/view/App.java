@@ -1,11 +1,10 @@
 package hu.protein.view;
 
-import hu.protein.data.parse.DataParser;
-import hu.protein.data.read.DataReader;
-import hu.protein.data.read.FileDataReader;
+import hu.protein.data.log.DataLogger;
+import hu.protein.data.log.FileDataLogger;
+import hu.protein.service.Bsa;
+import hu.protein.service.Instance;
 import hu.protein.service.Protein;
-
-import java.util.List;
 
 /**
  * @author Peter_Fazekas on 2017.03.19..
@@ -13,7 +12,9 @@ import java.util.List;
 public class App {
 
     private final Protein protein;
-    private final DataReader file;
+    private final Bsa bsa;
+    private final Instance instance;
+    private final DataLogger log;
 
     public static void main(String[] args) {
         App app = new App();
@@ -21,21 +22,16 @@ public class App {
     }
 
     public App() {
-        file = new FileDataReader();
-        DataParser aminoData = null;
-        try {
-            aminoData = (DataParser) Sources.AMINOACID.getParserType().newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        //        DataParser bsaData = Sources.BSA.getParserType().cast(DataParser.class);
-        List<String> aminoLines = file.read(Sources.AMINOACID.getSource());
-        protein = new Protein(aminoData.parser(aminoLines));
+        instance = Instance.create();
+        protein = instance.newProtein();
+        bsa = instance.newBsa();
+        log = new FileDataLogger("eredmeny.txt");
     }
 
     private void println() {
-        System.out.println("3. feladat: " + protein.getAminoAcids());
+        log.println("3. feladat: " + protein.getAminoAcids());
+        log.println("4. feladat: " + bsa.molecularFormula());
+        log.println("5. feladat: " + bsa.parser(Sources.CHYMOTRYPSIN_PATTERN));
+        log.println("6. feladat: " + bsa.parser(Sources.FACTOR_XI_PATTERN));
     }
 }
