@@ -21,9 +21,9 @@ public enum Sources {
     }};
 
     private final String source;
-    private final Class parserType;
+    private final Class<? extends DataParser> parserType;
 
-    Sources(final String source, final Class parserType) {
+    Sources(final String source, final Class<? extends DataParser> parserType) {
         this.source = source;
         this.parserType = parserType;
     }
